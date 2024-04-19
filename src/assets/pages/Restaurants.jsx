@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const Restaurant = () => {
+const Restaurants = () => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
@@ -14,7 +14,7 @@ const Restaurant = () => {
         setIsLoading(true);
 
         const response = await axios.get(
-          `https://res.cloudinary.com/lereacteur-apollo/raw/upload/v1575242111/10w-full-stack/Scraping/restaurants.json/${id}`
+          `http://localhost:3000/restaurants/${id}`
         );
         setData(response.data);
         console.log(data);
@@ -39,4 +39,4 @@ const Restaurant = () => {
   );
 };
 
-export default Restaurant;
+export default Restaurants;

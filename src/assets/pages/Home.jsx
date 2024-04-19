@@ -11,7 +11,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://res.cloudinary.com/lereacteur-apollo/raw/upload/v1575242111/10w-full-stack/Scraping/restaurants.json?name=${search}`
+          `http://localhost:3000/restaurants/name=${search}`
         );
 
         setData(response.data);
@@ -53,7 +53,7 @@ const Home = () => {
             }}
           ></div>
           <Link
-            to={`/restaurant/${restaurant.placeId}`}
+            to={`/restaurants/${restaurant.placeId}`}
             key={restaurant.placeId}
           >
             <div>{restaurant.name}</div>
