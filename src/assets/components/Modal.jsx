@@ -1,52 +1,39 @@
-import React, { useState } from "react";
-
-function Modal({ setVisible }) {
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isLogin) {
-      // Logique de connexion
-    } else {
-      // Logique d'inscription
-    }
-  };
-
+const Modal = ({ setVisible }) => {
   return (
-    <div className="modal">
-      <button
-        onClick={() => {
-          setVisible(false);
+    <div className="modal-root">
+      <div
+        className="modal"
+        onClick={(event) => {
+          event.stopPropagation();
         }}
       >
-        X
-      </button>
-      <h2>{isLogin ? "Connexion" : "Inscription"}</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">{isLogin ? "Se connecter" : "S'inscrire"}</button>
-      </form>
-      <p>
-        {isLogin ? "Nouveau sur le site ?" : "Déjà un compte ?"}{" "}
-        <button onClick={() => setIsLogin(!isLogin)}>
-          {isLogin ? "S'inscrire" : "Se connecter"}
+        {/* button pour fermer la modal */}
+        <button
+          onClick={() => {
+            setVisible(false);
+          }}
+        >
+          X
         </button>
-      </p>
+        <p>
+          Pellentesque odio metus, ultrices sed elementum ac, blandit id velit.
+          Maecenas sed nibh pharetra, pulvinar sapien vitae, commodo augue. Ut a
+          elementum augue. Nulla tincidunt felis sit amet est facilisis
+          ultricies. Vivamus ut cursus urna, ac lacinia erat. Etiam aliquet
+          auctor tortor ut molestie. Morbi lobortis dolor neque. Maecenas sed
+          semper justo. Duis pulvinar pulvinar pretium. Proin rhoncus nec risus
+          sed accumsan. Aliquam nec eros eu dui porta accumsan lobortis a enim.
+          Pellentesque odio metus, ultrices sed elementum ac, blandit id velit.
+          Maecenas sed nibh pharetra, pulvinar sapien vitae, commodo augue. Ut a
+          elementum augue. Nulla tincidunt felis sit amet est facilisis
+          ultricies. Vivamus ut cursus urna, ac lacinia erat. Etiam aliquet
+          auctor tortor ut molestie. Morbi lobortis dolor neque. Maecenas sed
+          semper justo. Duis pulvinar pulvinar pretium. Proin rhoncus nec risus
+          sed accumsan. Aliquam nec eros eu dui porta accumsan lobortis a enim.
+        </p>
+      </div>
     </div>
   );
-}
+};
 
 export default Modal;

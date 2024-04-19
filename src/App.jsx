@@ -1,7 +1,6 @@
 import "./App.css";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { library } from "@fortawesome/fontawesome-svg-core";
 
 //page/components :
 import Header from "./assets/components/Header.jsx";
@@ -22,7 +21,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-      visible && <Modal setVisible={setVisible} />
+      {visible && <Modal setVisible={setVisible} visible={visible} />}
     </Router>
   );
 }

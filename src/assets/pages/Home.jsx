@@ -1,17 +1,43 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
 
+  const ratingStars = (star) => {
+    let stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < star) {
+        stars.push(
+          <FontAwesomeIcon icon={faStar} style={{ color: "#FFC200" }} />
+        );
+      } else {
+        stars.push(
+          <FontAwesomeIcon
+            icon={faStar}
+            style={{
+              color: "white",
+              borderColor: "#FFC200",
+              borderWidth: "2px",
+              borderStyle: "inherit",
+            }}
+          />
+        );
+      }
+    }
+    return stars;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/restaurants/name=${search}`
+          `http://localhost:3000/restaurants?name=${search}`
         );
 
         setData(response.data);
@@ -28,9 +54,9 @@ const Home = () => {
     <p>Loading ...</p>
   ) : (
     <>
-      <div>
+      <form>
+        <label htmlFor="search"></label>
         <input
-          className="input1"
           id="search"
           value={search}
           type="search"
@@ -39,8 +65,8 @@ const Home = () => {
           onChange={(event) => {
             setSearch(event.target.value);
           }}
-        ></input>
-      </div>
+        />
+      </form>
       {data.map((restaurant, index) => (
         <div key={index}>
           <div
@@ -59,7 +85,7 @@ const Home = () => {
             <div>{restaurant.name}</div>
           </Link>
           <div>{restaurant.address}</div>
-          <div>{restaurant.rating}</div>
+          <div>{ratingStars(restaurant.rating)}</div>
           <div>{restaurant.description}</div>
         </div>
       ))}
