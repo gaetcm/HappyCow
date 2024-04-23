@@ -9,6 +9,7 @@ import Modal from "./assets/components/Modal.jsx";
 import Home from "./assets/pages/Home.jsx";
 import NotFound from "./assets/pages/Notfound.jsx";
 import Restaurants from "./assets/pages/Restaurants.jsx";
+import Carte from "./assets/pages/Carte.jsx";
 
 function App() {
   const [visible, setVisible] = useState(false);
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/restaurants/:id" element={<Restaurants />} />
+        <Route path="/carte" element={<Carte />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
