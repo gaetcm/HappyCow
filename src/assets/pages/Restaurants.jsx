@@ -1,24 +1,65 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function Restaurants() {
+  const ratingStars = (star) => {
+    let stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < star) {
+        stars.push(
+          <FontAwesomeIcon icon={faStar} style={{ color: "#FFC200" }} />
+        );
+      } else {
+        stars.push(
+          <FontAwesomeIcon icon={faStar} style={{ color: "lightgray" }} />
+        );
+      }
+    }
+    return stars;
+  };
   const [positions, setPositions] = useState([]);
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
+  const CustomPrevArrow = (props) => {
+    const { onClick } = props;
+    return (
+      <div className="prev-arrow" onClick={onClick}>
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </div>
+    );
+  };
+
+  const CustomNextArrow = (props) => {
+    const { onClick } = props;
+    return (
+      <div
+        className="next-arrow"
+        style={{ position: "relative", zIndex: "20" }}
+        onClick={onClick}
+      >
+        <FontAwesomeIcon icon={faArrowRight} />
+      </div>
+    );
+  };
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    prevArrow: <CustomPrevArrow />,
+
     responsive: [
       {
         breakpoint: 1024,
@@ -38,6 +79,7 @@ function Restaurants() {
         },
       },
     ],
+    nextArrow: <CustomNextArrow />,
   };
 
   useEffect(() => {
@@ -73,23 +115,8 @@ function Restaurants() {
         <>
           <div style={{ display: "flex" }}>
             <div className="colonne1">
-              <Slider {...settings}>
-                {restaurant.pictures.map((photo, index) => (
-                  <>
-                    {console.log(photo)}
-                    <div
-                      key={index}
-                      style={{
-                        background: `url(${photo})`,
-                        width: "100%",
-                        height: "200px",
-                      }}
-                    ></div>
-                  </>
-                ))}
-              </Slider>
-
-              <h2>{restaurant.name}</h2>
+              <h1 style={{ marginBottom: "20px" }}>{restaurant.name}</h1>
+              <div>{ratingStars(restaurant.rating)}</div>
               <div>
                 {restaurant.vegan === 1 ? (
                   <div className="green">Vegan</div>
@@ -98,14 +125,42 @@ function Restaurants() {
                 )}
               </div>
               <div>
-                {restaurant.veganOnly && <div className="green">Vegan</div>}
+                {restaurant.veganOnly && <div className="purple">Vegan</div>}
               </div>
+              <Slider
+                {...settings}
+                // style={{
+                //   display: "flex",
+                //   alignItems: "center",
+                //   position: "absolute",
+                // }}
+              >
+                {restaurant.pictures.map((photo, index) => (
+                  <>
+                    <div
+                      key={index}
+                      style={{
+                        background: `url(${photo})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        width: "99%",
+                        height: "200px",
+                      }}
+                    />
+                  </>
+                ))}
+              </Slider>
+              <p style={{ marginTop: "20px" }}>{restaurant.description}</p>
             </div>
-            <div id="colonne2">
+            <div className="colonne2">
               <MapContainer
                 center={[restaurant.location.lat, restaurant.location.lng]}
                 zoom={16}
-                style={{ width: "400px", height: "300px" }}
+                style={{
+                  width: "100%",
+                  height: "300px",
+                  borderRadius: "20px",
+                }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 {positions.map((position, index) => (
