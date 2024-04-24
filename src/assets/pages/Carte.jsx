@@ -53,32 +53,58 @@ const Carte = () => {
               to={`/restaurants/${restaurant.placeId}`}
               key={restaurant.placeId}
             >
+              {" "}
               <div
-                className="restocarte"
+                className="couverture"
                 style={{
-                  backgroundImage: `url(${restaurant.thumbnail})`,
-                  borderBottomWidth: "4px",
-                  borderBottomColor:
-                    restaurant.veganOnly === 1
-                      ? "purple"
-                      : restaurant.vegan === 1
-                      ? "green"
-                      : "red",
+                  backgroundColor:
+                    restaurant.category === 1
+                      ? "#b89e21"
+                      : restaurant.category === 2
+                      ? "#89278e"
+                      : restaurant.category === 12
+                      ? "#ef447f"
+                      : restaurant.category === 99
+                      ? "#3f74ba"
+                      : restaurant.catgeory === 0 && restaurant.vegan === 1
+                      ? "#22820e"
+                      : "#dc5d5b",
                 }}
               >
                 <div
-                  className="poppins-medium "
-                  key={index}
+                  className="restocarte"
                   style={{
-                    fontSize: "11px",
-                    marginBottom: "10px",
-                    color: "black",
+                    backgroundImage: `url(${restaurant.thumbnail})`,
+                    zIndex: "20",
+                    borderBottomWidth: "4px",
+                    borderBottomColor:
+                      restaurant.category === 1
+                        ? "#b89e21"
+                        : restaurant.category === 2
+                        ? "#89278e"
+                        : restaurant.category === 12
+                        ? "#ef447f"
+                        : restaurant.category === 99
+                        ? "#3f74ba"
+                        : restaurant.catgeory === 0 && restaurant.vegan === 1
+                        ? "#22820e"
+                        : "#dc5d5b",
                   }}
                 >
-                  {restaurant.name}
-                </div>
-                <div style={{ marginBottom: "20px", fontSize: "13px" }}>
-                  {ratingStars(restaurant.rating)}
+                  <div
+                    className="poppins-medium "
+                    key={index}
+                    style={{
+                      fontSize: "11px",
+                      marginBottom: "10px",
+                      color: "black",
+                    }}
+                  >
+                    {restaurant.name}
+                  </div>
+                  <div style={{ marginBottom: "20px", fontSize: "13px" }}>
+                    {ratingStars(restaurant.rating)}
+                  </div>
                 </div>
               </div>
             </Link>

@@ -36,7 +36,7 @@
   font-style: normal;
 }
 h1 {
-  font-size: 40px;
+  font-size: 38px;
 }
 
 /* Map */
@@ -103,24 +103,57 @@ h1 {
 }
 
 /* option veg */
-.green {
-  background: green;
+.option {
+  width: fit-content;
+  height: 25px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
+  padding-right: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.option img {
+  width: 20px;
+  margin: 7px;
 }
 
+.green {
+  background: #22820e;
+}
 .red {
-  background: red;
-  color: white;
+  background: #dc5d5b;
 }
 
 .purple {
-  background: purple;
-  color: white;
+  background: #89278e;
+}
+
+.yellow {
+  background: #b89e21;
+}
+
+.pink {
+  background: #ef447f;
+}
+.blue {
+  background: #3f74ba;
+}
+
+.green2 {
+  background: #22820e;
 }
 
 /* header */
 header {
+  position: sticky;
+  top: 0px;
+  z-index: 30;
   border-bottom: 1px lightgray solid;
+  background-color: white;
   width: 100%;
   display: flex;
   align-items: center;
@@ -136,6 +169,28 @@ header {
   #logo {
     margin-left: 15px;
   }
+}
+
+/* footer */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  bottom: 0px;
+  background-color: #7b4ec3;
+  color: white;
+  font-size: 17px;
+}
+
+footer a {
+  font-size: 17px;
+  font-weight: 300;
+  color: white;
+}
+footer a:hover {
+  font-weight: 600;
 }
 
 /* Home page */
@@ -234,12 +289,45 @@ a {
   border: 2px red solid;
 }
 
+.couverture {
+  width: 200px;
+  height: 200px;
+}
+
+.restocarte:hover {
+  border: green 2px solid;
+}
+.restocarte:hover .couverture {
+  display: inherit;
+  z-index: 30;
+}
+
 /* restaurant */
 .colonne1 {
-  margin: 30px;
+  padding: 30px 50px;
   width: 60%;
 }
 .colonne2 {
   margin: 30px;
   width: 40%;
+}
+
+.colonne2 > p {
+  margin-top: 20px;
+}
+
+.fleche {
+  color: black;
+  background-color: yellow;
+}
+
+.text-gradient {
+  background: linear-gradient(
+    to right,
+    #feb902,
+    #ee8541
+  ); /* Dégradé de couleur */
+  -webkit-background-clip: text; /* Permet de clipper le fond selon la forme du texte */
+  -webkit-text-fill-color: transparent; /* Remplissage du texte transparent */
+  display: inline-block; /* Pour que le dégradé s'applique correctement */
 }
