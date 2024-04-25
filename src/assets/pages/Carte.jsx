@@ -113,6 +113,9 @@ const Carte = () => {
           <div className="bouttons">
             <div style={{ display: "flex", gap: "10px" }}>
               <button
+                onClick={() => {
+                  setVegan(true);
+                }}
                 style={{
                   color: "#666666",
                   display: "flex",
@@ -124,6 +127,9 @@ const Carte = () => {
                 Vegan
               </button>
               <button
+                onClick={() => {
+                  setVegan(false);
+                }}
                 style={{
                   color: "#666666",
                   display: "flex",
@@ -137,6 +143,7 @@ const Carte = () => {
             </div>
             <div style={{ display: "flex", gap: "10px" }}>
               <button
+                onClick={() => setStoreFilter(!storeFilter)}
                 style={{
                   color: "#666666",
                   display: "flex",
@@ -148,6 +155,7 @@ const Carte = () => {
                 Store
               </button>
               <button
+                onClick={() => setVegetarian(!vegetarian)}
                 style={{
                   color: "#666666",
                   display: "flex",
@@ -171,6 +179,7 @@ const Carte = () => {
                 Ice Cream
               </button>
               <button
+                onClick={() => setOtherCategory(!otherCategory)}
                 style={{
                   color: "#666666",
                   display: "flex",
