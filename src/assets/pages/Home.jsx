@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import cover from "../img/homecover.webp";
+import vegan from "../img/category_vegan.svg";
+import veganopt from "../img/category_veg-friendly.svg";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -63,18 +65,28 @@ const Home = () => {
         }}
       >
         <form
-          style={{ zIndex: "20", display: "flex", flexDirection: "column" }}
+          style={{
+            zIndex: "20",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <label style={{ fontSize: "40px", color: "white" }} htmlFor="search">
+          <label
+            style={{ fontSize: "35px", color: "white", marginBottom: "20px" }}
+            htmlFor="search"
+          >
             Trouvez un restaurant vegan autour de vous
           </label>
 
           <input
+            className="homesearch"
             id="search"
             value={search}
             type="search"
             name="search"
-            placeholder="Recherchez un restaurant"
+            placeholder="  Recherchez un restaurant"
             onChange={(event) => {
               setSearch(event.target.value);
             }}
@@ -83,66 +95,168 @@ const Home = () => {
       </div>
       <main>
         <section>
-          <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "60%",
+              marginTop: "50px",
+              marginBottom: "20px",
+            }}
+          >
             <h1>Restaurants vegan autour de vous </h1>
             <Link to={"/Carte"}>
-              <span>View All</span>
+              <span style={{ fontWeight: "500" }}>View All</span>
             </Link>
           </div>
-          <div className="restos">
+          <div className="restos" style={{ paddingBottom: "20px" }}>
             {data.map((restaurant, index) => (
               <div key={index} className="content">
-                <div
-                  style={{
-                    backgroundImage: `url(${restaurant.thumbnail})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    width: "275px",
-                    height: "150px",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                  }}
-                ></div>
                 <Link
                   to={`/restaurants/${restaurant.placeId}`}
                   key={restaurant.placeId}
                 >
-                  <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+                  <div
+                    style={{
+                      backgroundImage: `url(${restaurant.thumbnail})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      width: "270px",
+                      height: "150px",
+                      objectFit: "cover",
+                      borderRadius: "10px",
+                    }}
+                  ></div>
+
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "10px",
+                      fontSize: "15px",
+                      color: "black",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ marginRight: "2px" }}>
+                      {restaurant.vegan === 1 ? (
+                        <img src={vegan} style={{ width: "25px" }} />
+                      ) : (
+                        <img src={veganopt} style={{ width: "25px" }} />
+                      )}
+                    </div>
                     {restaurant.name}
                   </div>
                 </Link>
-                <div>{restaurant.address}</div>
+                <div
+                  style={{
+                    marginTop: "5px",
+                    marginBottom: "10px",
+                    fontSize: "11px",
+                    fontWeight: "600",
+                    color: "#666666",
+                  }}
+                >
+                  {restaurant.address}
+                </div>
                 <div>{ratingStars(restaurant.rating)}</div>
-                <div>{restaurant.description}</div>
+                <div
+                  className="ellipsis"
+                  style={{
+                    width: "270px",
+                    height: "50px",
+                    marginTop: "10px",
+                    marginBottom: "5px",
+                    fontSize: "13px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {restaurant.description}
+                </div>
               </div>
             ))}
           </div>
         </section>
-        <section style={{ backgroundColor: "lightgray" }}>
-          <h1>Les meilleurs restaurants à Paris</h1>
+        <section style={{ backgroundColor: "#F2F2F2" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "60%",
+              marginTop: "50px",
+              marginBottom: "20px",
+            }}
+          >
+            <h1>Les meilleurs restaurants à Paris</h1>
+          </div>
           <div className="restos">
             {data.map((restaurant, index) => (
               <div
                 key={index}
                 className={restaurant.rating === 5 ? "content" : "hide"}
               >
-                <div
-                  style={{
-                    backgroundImage: `url(${restaurant.thumbnail})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    width: "275px",
-                    height: "150px",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                  }}
-                ></div>
                 <Link
                   to={`/restaurants/${restaurant.placeId}`}
                   key={restaurant.placeId}
                 >
-                  <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+                  <div
+                    style={{
+                      backgroundImage: `url(${restaurant.thumbnail})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      width: "275px",
+                      height: "150px",
+                      objectFit: "cover",
+                      borderRadius: "10px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "10px",
+                      fontSize: "15px",
+                      color: "black",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ marginRight: "2px" }}>
+                      {restaurant.vegan === 1 ? (
+                        <img src={vegan} style={{ width: "25px" }} />
+                      ) : (
+                        <img src={veganopt} style={{ width: "25px" }} />
+                      )}
+                    </div>
                     {restaurant.name}
+                  </div>
+                  <div
+                    className="ellipsis"
+                    style={{
+                      width: "275px",
+                      height: "93px",
+                      marginTop: "10px",
+                      fontSize: "13px",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      color: "black",
+                      fontWeight: "300",
+                    }}
+                  >
+                    <div
+                      style={{
+                        marginTop: "5px",
+                        marginBottom: "10px",
+                        fontSize: "12px",
+                        fontWeight: "600",
+                        color: "#666666",
+                      }}
+                    >
+                      {restaurant.address}
+                    </div>
+                    {restaurant.description}
                   </div>
                 </Link>
               </div>

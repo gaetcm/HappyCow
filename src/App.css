@@ -34,11 +34,18 @@
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
+  box-sizing: border-box;
 }
 h1 {
-  font-size: 38px;
+  font-size: 30px;
+  font-weight: 600;
 }
 
+.ellipsis {
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* Map */
 
 .map {
@@ -49,6 +56,7 @@ h1 {
 /* Modal */
 
 .modal-root {
+  z-index: 80;
   color: red;
   /* Pour que la modal prenne tout l'écran : */
   height: 100vh;
@@ -102,7 +110,7 @@ h1 {
 /* option veg */
 .option {
   width: fit-content;
-  height: 25px;
+  height: fit-content;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -113,7 +121,7 @@ h1 {
   font-weight: 500;
   margin-bottom: 10px;
 }
-.option img {
+.option > img {
   width: 20px;
   margin: 7px;
 }
@@ -203,13 +211,13 @@ footer a:hover {
 
 section {
   width: 100%;
-  border: 2px blue solid;
   flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  margin-bottom: 30px;
 }
 .restos {
   width: 65%;
@@ -219,7 +227,20 @@ section {
   overflow: hidden;
   overflow-y: scroll;
   flex-wrap: wrap;
-  border: 2px red solid;
+}
+
+.homesearch {
+  width: 80%;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 20px;
+  border: rgba(0, 0, 0, 0.2) 1.5px solid;
+  color: lightgray;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 20px;
 }
 
 main {
@@ -228,7 +249,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px green solid;
 }
 
 a {
@@ -293,6 +313,28 @@ a {
   align-items: center;
 }
 
+.bouttons {
+  width: 90%;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.bouttons button {
+  background-color: white;
+  border-radius: 5px;
+  height: 45px;
+  font-weight: 600;
+  font-size: 15px;
+  border: lightgray 1px solid;
+  gap: 5px;
+}
+
+.bouttons button:hover {
+  cursor: pointer;
+}
+
 .pagination {
   width: 60%;
   display: flex;
@@ -300,6 +342,7 @@ a {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  margin-top: 20px;
 }
 
 .buttonpage {
@@ -335,7 +378,7 @@ a {
 }
 
 .filter input {
-  width: 80%;
+  width: 90%;
   height: 40px;
   border-radius: 5px;
   border: none;
@@ -392,6 +435,7 @@ a {
   width: 60%;
 }
 .colonne2 {
+  padding-top: 20px;
   margin: 30px;
   width: 40%;
 }

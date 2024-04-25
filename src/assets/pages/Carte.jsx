@@ -10,7 +10,7 @@ import violet from "../img/markerviolet.png";
 import bleu from "../img/other_marker.png";
 import jaune from "../img/health_store_marker.png";
 import pink from "../img/ice_cream_marker.png";
-import vegan from "../img/category_vegan.svg";
+import veganm from "../img/category_vegan.svg";
 import veganopt from "../img/category_veg-friendly.svg";
 import icecream from "../img/category_ice-cream.svg";
 import other from "../img/category_other.svg";
@@ -39,16 +39,33 @@ const Carte = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [skip, setSkip] = useState(0);
   const [search, setSearch] = useState("");
-  const [vegan, setVegan] = useState("");
-  const [category, setCategory] = useState("");
+  const [vegan, setVegan] = useState(false);
+  const [storeFilter, setStoreFilter] = useState(false);
+  const [vegetarian, setVegetarian] = useState(false);
+  const [iceCreamFilter, setIceCreamFilter] = useState(false);
+  const [otherCategory, setOtherCategory] = useState(false);
   const itemsPerPage = 24;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/carte?name=${search}&skip=${skip}&limit=${itemsPerPage}`
-        );
+        let url = `http://localhost:3000/carte?name=${search}&skip=${skip}&limit=${itemsPerPage}`;
+        if (vegan) {
+          url += "&vegan=1";
+        }
+        if (storeFilter) {
+          url += "&category=1";
+        }
+        if (vegetarian) {
+          url += "&category=2";
+        }
+        if (iceCreamFilter) {
+          url += "&category=12";
+        }
+        if (otherCategory) {
+          url += "&category=99";
+        }
+        const response = await axios.get(url);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -57,7 +74,16 @@ const Carte = () => {
     };
 
     fetchData();
-  }, [search, skip]);
+  }, [
+    search,
+    skip,
+    vegan,
+    storeFilter,
+    vegetarian,
+    iceCreamFilter,
+    otherCategory,
+  ]);
+
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
     setSkip(skip + itemsPerPage);
@@ -79,28 +105,82 @@ const Carte = () => {
             value={search}
             type="search"
             name="search"
-            placeholder="Recherchez un restaurant"
+            placeholder="  Recherchez un restaurant"
             onChange={(event) => {
               setSearch(event.target.value);
             }}
           />
-          <div style={{ width: "80%", height: "80%" }}>
-            <div>
-              <button>vegan</button>
-              <button>vegan options</button>
-            </div>
-            <div>
+          <div className="bouttons">
+            <div style={{ display: "flex", gap: "10px" }}>
               <button
-                onClick={() => {
-                  setCategory("1");
-                  setSearch("");
+                style={{
+                  color: "#666666",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                cat 1
+                <img src={veganm} style={{ width: "30px" }} />
+                Vegan
               </button>
-              <button>cat 2</button>
-              <button>cat 3</button>
-              <button>cat 4</button>
+              <button
+                style={{
+                  color: "#666666",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img src={veganopt} style={{ width: "30px" }} />
+                Vegan options
+              </button>
+            </div>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button
+                style={{
+                  color: "#666666",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img src={store} style={{ width: "30px" }} />
+                Store
+              </button>
+              <button
+                style={{
+                  color: "#666666",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img src={veg} style={{ width: "30px" }} />
+                Végétarien
+              </button>
+              <button
+                onClick={() => setIceCreamFilter(!iceCreamFilter)}
+                style={{
+                  color: "#666666",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img src={icecream} style={{ width: "30px" }} />
+                Ice Cream
+              </button>
+              <button
+                style={{
+                  color: "#666666",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img src={other} style={{ width: "30px" }} />
+                Other
+              </button>
             </div>
           </div>
           <div className="pagination">
@@ -198,7 +278,7 @@ const Carte = () => {
                       ) : restaurant.category === 0 &&
                         restaurant.vegan === 1 ? (
                         <div className="option green">
-                          <img src={vegan} />
+                          <img src={veganm} />
                         </div>
                       ) : (
                         <div className="option red">
