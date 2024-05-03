@@ -51,30 +51,17 @@ h1 {
 .map {
   width: 100%;
   height: 100vw;
+  z-index: 10;
 }
 
 /* Modal */
 
-.modal-root {
-  z-index: 80;
-  color: red;
-  /* Pour que la modal prenne tout l'écran : */
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.modal {
-  background-color: white;
-  width: 700px;
-  height: 400px;
-}
 .App {
   position: relative;
 }
 
 .modal-root {
+  z-index: 80;
   color: red;
   /* Pour que la modal prenne tout l'écran : */
   position: absolute;
@@ -85,6 +72,7 @@ h1 {
   left: 0;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   /* Mettre un background noir et transparent : */
   background-color: rgba(0, 0, 0, 0.5);
@@ -92,19 +80,24 @@ h1 {
 
 .modal {
   background-color: white;
-  width: 700px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   padding: 10px 50px;
-  /* Placer le button en haut à droite de la modal : */
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
 }
-.modal button {
+.X {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  color: #7b4ec3;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px;
+  border: none;
+  background-color: white;
 }
 
 /* option veg */
@@ -429,6 +422,10 @@ a {
   margin: 5px 0;
 }
 
+.popup {
+  border-radius: 2px red solid;
+}
+
 /* restaurant */
 .colonne1 {
   padding: 30px 50px;
@@ -447,6 +444,26 @@ a {
 .fleche {
   color: black;
   background-color: yellow;
+}
+
+.colonne1 .slick-prev:before {
+  font-family: "slick";
+  font-size: 20px;
+  line-height: 1;
+  opacity: 1;
+  color: #7b4ec3;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.colonne1 .slick-next:before {
+  font-family: "slick";
+  font-size: 20px;
+  line-height: 1;
+  opacity: 1;
+  color: #7b4ec3;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .text-gradient {

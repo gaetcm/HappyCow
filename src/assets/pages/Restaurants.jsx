@@ -57,7 +57,7 @@ function Restaurants() {
         style={{
           ...style,
           height: "40px",
-          background: "#7B4EC3",
+          background: "none",
           display: "flex",
           fontSize: "24px",
           justifyContent: "center",
@@ -76,7 +76,7 @@ function Restaurants() {
         style={{
           ...style,
           height: "40px",
-          background: "#7B4EC3",
+          background: "none",
           display: "flex",
           fontSize: "24px",
           justifyContent: "center",

@@ -6,7 +6,6 @@ const Modal = ({ setVisible }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [newsletter, setNewsletter] = useState(false);
   const [errorMessage, setErrormessage] = useState(false);
   const navigate = useNavigate();
 
@@ -36,22 +35,51 @@ const Modal = ({ setVisible }) => {
   return (
     <div className="modal-root">
       <div
-        className="modal"
-        onClick={(event) => {
-          event.stopPropagation();
+        style={{
+          backgroundColor: "white",
+          width: "400px",
+          height: "50px",
+          display: "flex",
+          justifyContent: "flex-end",
         }}
       >
-        {/* button pour fermer la modal */}
         <button
+          className="X"
+          style={{ cursor: "pointer" }}
           onClick={() => {
             setVisible(false);
           }}
         >
           X
         </button>
+      </div>
+      <div
+        className="modal"
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
         <div className="formulaire">
-          <form className="formsignup" onSubmit={handleSubmit}>
-            <div className="inputtext">
+          <form
+            className="formsignup"
+            onSubmit={handleSubmit}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div
+              className="inputtext"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "20px",
+              }}
+            >
               <input
                 value={username}
                 type="text"
@@ -74,12 +102,21 @@ const Modal = ({ setVisible }) => {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
-            <button type="submit" value="S'inscrire'">
+            <button
+              style={{ margin: "40px" }}
+              type="submit"
+              value="S'inscrire'"
+            >
               S'inscrire
             </button>
             {errorMessage && <p style={{ color: "red" }}> {errorMessage}</p>}
           </form>
-          <Link to="/login">Tu as déjà un compte ? connecte-toi</Link>
+          <Link
+            style={{ color: "black", fontSize: "15px", fontWeight: "400" }}
+            to="/login"
+          >
+            Tu as déjà un compte ? connecte-toi
+          </Link>
         </div>
       </div>
     </div>

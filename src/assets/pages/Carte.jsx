@@ -39,30 +39,36 @@ const Carte = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [skip, setSkip] = useState(0);
   const [search, setSearch] = useState("");
-  const [vegan, setVegan] = useState(false);
-  const [storeFilter, setStoreFilter] = useState(false);
-  const [vegetarian, setVegetarian] = useState(false);
-  const [iceCreamFilter, setIceCreamFilter] = useState(false);
-  const [otherCategory, setOtherCategory] = useState(false);
+  const [buttonStates, setButtonStates] = useState({
+    vegan: false,
+    storeFilter: false,
+    vegetarian: false,
+    iceCreamFilter: false,
+    otherCategory: false,
+    vegOnly: false,
+  });
   const itemsPerPage = 24;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let url = `http://localhost:3000/carte?name=${search}&skip=${skip}&limit=${itemsPerPage}`;
-        if (vegan) {
+        if (buttonStates.vegan) {
           url += "&vegan=1";
         }
-        if (storeFilter) {
+        if (buttonStates.vegOnly) {
+          url += "&vegOnly=1";
+        }
+        if (buttonStates.storeFilter) {
           url += "&category=1";
         }
-        if (vegetarian) {
+        if (buttonStates.vegetarian) {
           url += "&category=2";
         }
-        if (iceCreamFilter) {
+        if (buttonStates.iceCreamFilter) {
           url += "&category=12";
         }
-        if (otherCategory) {
+        if (buttonStates.otherCategory) {
           url += "&category=99";
         }
         const response = await axios.get(url);
@@ -74,15 +80,7 @@ const Carte = () => {
     };
 
     fetchData();
-  }, [
-    search,
-    skip,
-    vegan,
-    storeFilter,
-    vegetarian,
-    iceCreamFilter,
-    otherCategory,
-  ]);
+  }, [search, skip, buttonStates]);
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -92,6 +90,13 @@ const Carte = () => {
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
     setSkip(skip - itemsPerPage);
+  };
+
+  const handleButtonClick = (buttonName) => {
+    setButtonStates((prevState) => ({
+      ...prevState,
+      [buttonName]: !prevState[buttonName],
+    }));
   };
 
   return isLoading ? (
@@ -111,85 +116,104 @@ const Carte = () => {
             }}
           />
           <div className="bouttons">
-            <div style={{ display: "flex", gap: "10px" }}>
-              <button
-                onClick={() => {
-                  setVegan(true);
-                }}
-                style={{
-                  color: "#666666",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img src={veganm} style={{ width: "30px" }} />
-                Vegan
-              </button>
-              <button
-                onClick={() => {
-                  setVegan(false);
-                }}
-                style={{
-                  color: "#666666",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img src={veganopt} style={{ width: "30px" }} />
-                Vegan options
-              </button>
-            </div>
-            <div style={{ display: "flex", gap: "10px" }}>
-              <button
-                onClick={() => setStoreFilter(!storeFilter)}
-                style={{
-                  color: "#666666",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img src={store} style={{ width: "30px" }} />
-                Store
-              </button>
-              <button
-                onClick={() => setVegetarian(!vegetarian)}
-                style={{
-                  color: "#666666",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img src={veg} style={{ width: "30px" }} />
-                Végétarien
-              </button>
-              <button
-                onClick={() => setIceCreamFilter(!iceCreamFilter)}
-                style={{
-                  color: "#666666",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img src={icecream} style={{ width: "30px" }} />
-                Ice Cream
-              </button>
-              <button
-                onClick={() => setOtherCategory(!otherCategory)}
-                style={{
-                  color: "#666666",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img src={other} style={{ width: "30px" }} />
-                Other
-              </button>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                gap: "10px",
+                flexDirection: "column",
+              }}
+            >
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button
+                  onClick={() => handleButtonClick("vegan")}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    backgroundColor: buttonStates.vegan ? "#22820e" : "white",
+                    color: buttonStates.vegan ? "white" : "#666666",
+                  }}
+                >
+                  <img src={veganm} style={{ width: "30px" }} />
+                  Vegan
+                </button>
+                <button
+                  onClick={() => handleButtonClick("vegOnly")}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    backgroundColor: buttonStates.vegOnly ? "#dc5d5b" : "white",
+                    color: buttonStates.vegOnly ? "white" : "#666666",
+                  }}
+                >
+                  <img src={veganopt} style={{ width: "30px" }} />
+                  Vegan options
+                </button>
+              </div>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button
+                  onClick={() => handleButtonClick("storeFilter")}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    backgroundColor: buttonStates.storeFilter
+                      ? "#b89e21"
+                      : "white",
+                    color: buttonStates.storeFilter ? "white" : "#666666",
+                  }}
+                >
+                  <img src={store} style={{ width: "30px" }} />
+                  Store
+                </button>
+                <button
+                  onClick={() => handleButtonClick("vegetarian")}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    backgroundColor: buttonStates.vegetarian
+                      ? "#89278e"
+                      : "white",
+                    color: buttonStates.vegetarian ? "white" : "#666666",
+                  }}
+                >
+                  <img src={veg} style={{ width: "30px" }} />
+                  Végétarien
+                </button>
+                <button
+                  onClick={() => handleButtonClick("iceCreamFilter")}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    backgroundColor: buttonStates.iceCreamFilter
+                      ? "#ef447f"
+                      : "white",
+                    color: buttonStates.iceCreamFilter ? "white" : "#666666",
+                  }}
+                >
+                  <img src={icecream} style={{ width: "30px" }} />
+                  Ice Cream
+                </button>
+                <button
+                  onClick={() => handleButtonClick("otherCategory")}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    backgroundColor: buttonStates.otherCategory
+                      ? "#3f74ba"
+                      : "white",
+                    color: buttonStates.otherCategory ? "white" : "#666666",
+                  }}
+                >
+                  <img src={other} style={{ width: "30px" }} />
+                  Other
+                </button>
+              </div>
             </div>
           </div>
           <div className="pagination">
@@ -383,9 +407,18 @@ const Carte = () => {
               }
             >
               <Popup>
+                <img
+                  src={restaurant.thumbnail}
+                  width="100%"
+                  height="30%"
+                  objectFit="cover"
+                />
+                <br />
                 {restaurant.name}
                 <br />
-                Lat: {restaurant.location.lat}, Lng: {restaurant.location.lng}
+                {ratingStars(restaurant.rating)}
+                <br />
+                {restaurant.address}
               </Popup>
             </Marker>
           ))}

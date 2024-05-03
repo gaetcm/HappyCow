@@ -10,7 +10,10 @@ import veganopt from "../img/category_veg-friendly.svg";
 const Home = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [skip, setSkip] = useState(0);
   const [search, setSearch] = useState("");
+  const itemsPerPage = 20;
 
   const ratingStars = (star) => {
     let stars = [];
@@ -32,7 +35,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/restaurants?name=${search}`
+          `http://localhost:3000/restaurants?name=${search}&skip=${skip}&limit=${itemsPerPage}`
         );
 
         setData(response.data);
@@ -43,7 +46,16 @@ const Home = () => {
     };
 
     fetchData();
-  }, [search]);
+  }, [search, skip]);
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+    setSkip(skip + itemsPerPage);
+  };
+
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
+    setSkip(skip - itemsPerPage);
+  };
 
   return isLoading ? (
     <p>Loading ...</p>
@@ -106,7 +118,7 @@ const Home = () => {
             }}
           >
             <h1>Restaurants vegan autour de vous </h1>
-            <Link to={"/Carte"}>
+            <Link to={"/carte"}>
               <span style={{ fontWeight: "500" }}>View All</span>
             </Link>
           </div>
@@ -177,6 +189,36 @@ const Home = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="pagination">
+            <button
+              className="buttonpage"
+              onClick={prevPage}
+              disabled={currentPage === 1}
+            >
+              {"<"}
+            </button>
+            {currentPage > 1 && (
+              <>
+                <span className="pages" onClick={prevPage}>
+                  {currentPage - 1}
+                </span>
+              </>
+            )}
+            <span className="poppins-semibold current">
+              {currentPage}
+              {"  "}
+            </span>
+            <span className="pages" onClick={nextPage}>
+              {currentPage + 1}{" "}
+            </span>
+            <button
+              className="buttonpage"
+              onClick={nextPage}
+              disabled={data.length < itemsPerPage}
+            >
+              {">"}
+            </button>
           </div>
         </section>
         <section style={{ backgroundColor: "#F2F2F2" }}>

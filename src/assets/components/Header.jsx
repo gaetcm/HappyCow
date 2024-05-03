@@ -26,6 +26,7 @@ const Header = ({ setVisible, visible }) => {
       </div>
       <button
         style={{
+          cursor: "pointer",
           backgroundColor: "#7C4EC4",
           width: "120px",
           height: "48px",
