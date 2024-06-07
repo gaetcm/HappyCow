@@ -142,7 +142,7 @@ function Restaurants() {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <p>En Chargement...</p>
       ) : error ? (
         <p>{error}</p>
       ) : restaurant ? (
